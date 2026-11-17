@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">Hello, I'm</p>
+  <h1>{{ site }}</h1>
+  <p class="lead">{{ tagline }}</p>
+  <p><a class="button" href="#projects">See my work</a> <a class="button ghost" href="#contact">Get in touch</a></p>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="grid">
+  {% for p in projects %}
+    <article class="card">
+      <h3>{{ p.name }}</h3>
+      <p>{{ p.text }}</p>
+      <p class="tag">{{ p.tag }}</p>
+    </article>
+  {% endfor %}
+  </div>
+</section>
+
+<section id="about">
+  <h2>About</h2>
+  <p>This is a sample page. Replace this paragraph with a few lines about you: what you build, what you like working on, and what you are looking for.</p>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Find me on <a href="https://github.com/mrigangha">GitHub</a>.</p>
+</section>
+{% endblock %}

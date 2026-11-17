@@ -6,8 +6,9 @@ https://github.com/mrigangha/chvm. This repo holds only the site.
 ## Files
 
 - `main.ts`: the routes. Imports Praline from `../chvm/ts/praline/`.
+- `templates/`: the page templates (`base.html`, `home.html`, `error.html`). Read once at start up.
 - `public/`: static files, served under `/static`.
-- `Dockerfile`: clones chvm, compiles `main.ts`, bakes it into one static executable, and ships only that and `public/`.
+- `Dockerfile`: clones chvm, compiles `main.ts`, bakes it into one static executable, and ships only that, `templates/` and `public/`.
   The image is about 1.3 MB and runs as a non-root user.
 - `render.yaml`: the Render service. Health check path `/healthz`.
 

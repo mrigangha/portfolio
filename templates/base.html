@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ site }}{% endblock %}</title>
+<meta name="description" content="{{ tagline }}">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/">{{ site }}</a>
+  <nav><a href="/#projects">Projects</a><a href="/#about">About</a><a href="/#contact">Contact</a></nav>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer>
+  <span>Served by Praline on chvm: a web framework in TypeScript, running on a bytecode VM written in C.</span>
+</footer>
+</body>
+</html>

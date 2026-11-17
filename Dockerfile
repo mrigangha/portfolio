@@ -24,6 +24,7 @@ FROM scratch
 WORKDIR /app
 COPY --from=build /tmp/site /app/site
 COPY public /app/public
+COPY templates /app/templates
 USER 10001:10001
 # Render sets PORT. The server listens on 0.0.0.0 when PORT is set.
 ENV PORT=10000
