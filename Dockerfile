@@ -3,17 +3,21 @@
 #
 # The chvm source is a stage of its own. By default it is cloned from GitHub at CHVM_REF. To build against a
 # local checkout instead: docker build --build-context chvm=../chvm .
-FROM alpine/git AS chvm
+FROM alpine/git AS chvm-git
 ARG CHVM_REPO=https://github.com/mrigangha/chvm
 ARG CHVM_REF=main
-RUN git clone --depth 1 --branch "$CHVM_REF" "$CHVM_REPO" /chvm
+RUN git clone --depth 1 --branch "$CHVM_REF" "$CHVM_REPO" /chvm \
+ && rm -rf /chvm/.git
+
+FROM scratch AS chvm
+COPY --from=chvm-git /chvm /
 
 FROM node:24-bookworm AS build
 COPY --from=chvm / /src/chvm
 COPY main.ts /src/portfolio/main.ts
 WORKDIR /src/chvm
 # no libffi: foreign calls are not needed, and a static binary cannot load libraries
-RUN make FFI=0 build/chbake
+RUN make FFI=0 build/chasm build/chbake
 RUN node ts/src/chts.ts -o /tmp/site.chbc /src/portfolio/main.ts
 RUN build/chbake --net /tmp/site.chbc /tmp/site.c \
  && cc -O2 -std=gnu11 -fno-crossjumping --param max-goto-duplication-insns=32 -Isrc -static \
